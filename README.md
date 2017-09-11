@@ -12,6 +12,14 @@ The project is based on a small web service which uses the following technologie
 * Maven 3.5
 * Eclipse
 
+VehicleManager is a Spring MVC application where you can manage vehicles(create new vehicle and manage their directions)
+When a new car is created in /newVehicle page, it is placed with 'NEW' status.Then VehicleManager application sends this request to VehicleProcessor application using JMS queue via ActiveMQ Message broker.
+Also VehicleManager application configures a listener to get VehicleProcessor's response on another queue.
+By the way VehicleProcessor is also Spring-based application and it is deployed as war,and gets new cars/directed cars then processes them.
+It also sends process response on the response queue. After receiving process response from VehicleProcess application, VehicleManager application updates the vehicle status in it’s repository.
+
+Also you can see vehicles' status in /vehicleStatus page.In this page,vehicles direction's can be changed with forward,backward,left and right buttons.
+When you clicked one of this buttons, existing vehicle object changed with choosen direction and sent to vehicle queue to process.
 
 Before build our project using Maven,we need to start ActiveMQ for our test scripts.
 
