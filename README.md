@@ -8,43 +8,33 @@ The project is based on a small web service which uses the following technologie
 * Java 1.8
 * Spring MVC 4
 * JMS & ActiveMQ 5.13
+* Tomcat 8
 * Maven 3.5
 * Eclipse
 
 
-Go http://localhost:8080 address,then choose controller and endpoint.You can search user by their name and gender.Entered name is searched in first_name and last_name columns in table.
+Before build our project using Maven,we need to start ActiveMQ for our test scripts.
 
-Also you can query the db by this link;
+## Run ActiveMQ
 
-http://localhost:8080/v1/userinfo/search/name/search_name_here/gender/search_gender_here 
+$> cd your_activemq_path/bin
+
+$> sudo ./activemq start
 
 
+Then,following two commands must be run seperately for VehicleManager and VehicleProcessor
 
 ## Enter application folder
 
 $> cd your_application_folder_path
-
 
 ## Build application from source
 
 $> mvn clean install
 
 
-## Docker build
+After that,we can deploy VehicleManager to Tomcat in Eclipse.You can add new vehicle and redirect an existing vehicle using this project.Basically,main page of this project is http://localhost:8080/VehicleManager/ You can also navigate with links below the page to list existing vehicles' status and positions.
 
-$> sudo mvn package docker:build -Dmaven.test.skip=true
+When you completed vehicle operations,you can deploy VehicleProcessor project to Tomcat in Eclipse.This project will process your operations.And it will change these vehicles' status.New statuses can be seen in VehicleManager project web ui.
 
-
-## Docker run image
-
-$> sudo docker run -p 8080:8080 -t aekbercelik/repo1
-
-
-## Docker create tag
-
-$> sudo docker tag docker.io/aekbercelik/repo1:latest docker.io/aekbercelik/repo1:tag1
-
-
-## Docker push
-
-$> sudo mvn docker:push -Dmaven.test.skip=true
+Also you can see your queues' status in ActiveMQ admin page(http://localhost:8161/admin/queues.jsp)
