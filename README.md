@@ -42,6 +42,6 @@ $> mvn clean install
 
 After that,import these projects into Eclipse(or take war files to Tomcat webapps folder and start tomcat from command line), deploy VehicleManager to Tomcat in Eclipse and start Tomcat.You can add new vehicle and redirect an existing vehicle using this project.Basically,main page of this project is http://localhost:8080/VehicleManager/ You can also navigate with links below the page to list existing vehicles' status and positions.
 
-When you completed vehicle operations,you can deploy VehicleProcessor project to Tomcat in Eclipse.This project will process your operations.And it will change these vehicles' status.New statuses can be seen in VehicleManager project web ui.
+When you completed vehicle operations,you can deploy VehicleProcessor project to Tomcat in Eclipse.This project will process your operations.And it will change these vehicles' status.New status can be seen in VehicleManager project web ui.
 
 Also you can see your queues' status in ActiveMQ admin page(http://localhost:8161/admin/queues.jsp)
