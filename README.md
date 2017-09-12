@@ -4,7 +4,7 @@
 Asynchron messaging application by Ali Ekber Celik.This application developed under Ubuntu 16.04 x64 OS with Java 8.
 
 VehicleManager is a Spring MVC application where you can manage vehicles(create new vehicle and manage their directions).
-When a new car is created in /newVehicle page, it is placed with 'NEW' status.Then VehicleManager application sends this request to VehicleProcessor application using JMS queue via ActiveMQ Message broker.
+When a new vehicle is created in /newVehicle page, it is placed with 'NEW' status.Then VehicleManager application sends this request to VehicleProcessor application using JMS queue via ActiveMQ Message broker.
 
 Also VehicleManager application configures a listener to get VehicleProcessor's response on another queue.
 By the way VehicleProcessor is also Spring-based application and it is deployed as war,and gets new cars/redirected cars then processes them.
