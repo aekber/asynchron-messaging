@@ -1,5 +1,6 @@
 package com.tba.service;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -33,6 +34,17 @@ public class VehicleServiceImpl implements VehicleService{
 	@Autowired
 	VehicleRepository vehicleRepository;
 	
+	private static Map<Integer, VehicleStatus> statusMap;
+	
+	static {
+		statusMap = new HashMap<Integer, VehicleStatus>();
+		statusMap.put(200, VehicleStatus.CREATED);
+		statusMap.put(300, VehicleStatus.MOVED_FORWARD);
+		statusMap.put(400, VehicleStatus.MOVED_BACKWARD);
+		statusMap.put(500, VehicleStatus.MOVED_LEFT);
+		statusMap.put(600, VehicleStatus.MOVED_RIGHT);
+	}
+	
 	public void sendVehicle(Vehicle vehicle) {
 		vehicle.setVehicleId(UUID.randomUUID().toString());
 		vehicle.setStatus(VehicleStatus.NEW);
@@ -47,23 +59,8 @@ public class VehicleServiceImpl implements VehicleService{
 	 * This methods resolves return codes from other application
 	 */
 	public void updateVehicle(VehicleProcessResponse response) {
-		
 		Vehicle vehicle = response.getVehicle();
-		
-		if(response.getReturnCode()==200){
-			vehicle.setStatus(VehicleStatus.CREATED);
-		}else if(response.getReturnCode()==300){
-			vehicle.setStatus(VehicleStatus.MOVED_FORWARD);
-		}else if(response.getReturnCode()==400){
-			vehicle.setStatus(VehicleStatus.MOVED_BACKWARD);
-		}else if(response.getReturnCode()==500){
-			vehicle.setStatus(VehicleStatus.MOVED_LEFT);
-		}else if(response.getReturnCode()==600){
-			vehicle.setStatus(VehicleStatus.MOVED_RIGHT);
-		}else{
-			vehicle.setStatus(VehicleStatus.NEW);
-		}
-		
+		vehicle.setStatus(statusMap.get(response.getReturnCode()));
 		vehicleRepository.putVehicle(vehicle);
 	}
 	
